@@ -12,9 +12,9 @@ void main(){
             negatives++;
         }
         else {
-            positiveSum++;
+            positiveSum += numbers[i];
         }
     }
 
-    print("Negatives: %d\nPositive Sum: %d", negatives, positiveSum);
+    printf("Negatives: %d\nPositive Sum: %d", negatives, positiveSum);
 }
