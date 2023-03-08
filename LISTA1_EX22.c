@@ -18,7 +18,7 @@ void main(){
     for(int i=0; i<10; i++){
         for(int j=0; j<20; j++){
             numbers[i][j] = numbers[i][j] * sum[i];
-            printf("%d ", sum[i]);
+            printf("%d ", numbers[i][j]);
         }
         
         printf("\n");
