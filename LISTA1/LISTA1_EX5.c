@@ -8,5 +8,5 @@ void main(){
     scanf("%d", &aux);
 
     price = (aux * 11.5);
-    printf("Final Cost: %.2f", %price);
+    printf("Final Cost: %.2f", price);
 }
