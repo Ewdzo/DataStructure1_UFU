@@ -20,8 +20,8 @@ void main(){
                 if(numbers[i] == delete){
                     for(int j = i; j<qty; j++){
                         numbers[j] = numbers[j+1];
-                        qty--;
                     }
+                    qty--;
                 }
             } 
         }
