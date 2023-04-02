@@ -2,13 +2,19 @@
 #include <string.h>
 
 char duplicateWord(char *phrase){
-    char *word = strtok(phrase, " ");
+    char *word = strtok(phrase, " "), duplicatedPhrase[200] = {0};
 
-    while( word != NULL){
-        for(int i = 0; i<2; i++){ printf("%s ", word);};
+    while(word != NULL){
+        for(int i=0; i<2; i++){
+            strcat(duplicatedPhrase, word);
+            strcat(duplicatedPhrase, " ");
+        };
+        
         word = strtok(NULL, " ");
     }
-}
++
+    printf("%s", duplicatedPhrase);
+};
 
 void main(){
     char input[100];
@@ -18,4 +24,4 @@ void main(){
     gets(input);
     
     duplicateWord(input);    
-}
+};
