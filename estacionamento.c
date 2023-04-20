@@ -49,30 +49,30 @@ void main(){
                 push(aux, &waiting);
             };
         }
-        else if(input[0] == 'P'){
-            car aux;
-            int position = -1;
+        // else if(input[0] == 'P'){
+        //     car aux;
+        //     int position = -1;
 
-            for(int i = 0; i<9; i++) { aux.licensePlate[i] = input[i+2]; }
+        //     for(int i = 0; i<9; i++) { aux.licensePlate[i] = input[i+2]; }
 
-            for(int i = 0; i <= parked.top; i++) {
-                if(aux.licensePlate == parked.cars[i].licensePlate) position = i;
-            };
+        //     for(int i = 0; i <= parked.top; i++) {
+        //         if(aux.licensePlate == parked.cars[i].licensePlate) position = i;
+        //     };
 
-            if(position != -1){
-                for(int i = parked.top; i>position; i--) {
-                    printf("\n%s - Waiting ", parked.cars[i].licensePlate);
-                    push(pop(&parked), &waiting);
-                }
-                pop(&parked);
+        //     if(position != -1){
+        //         for(int i = parked.top; i>position; i--) {
+        //             printf("\n%s - Waiting ", parked.cars[i].licensePlate);
+        //             push(pop(&parked), &waiting);
+        //         }
+        //         pop(&parked);
 
-                for(int i = parked.top; i != (parked.top- 1); i++) {
-                    printf("\n%s - Parked ", waiting.cars[i].licensePlate);
-                    push(pop(&waiting), &parked);
-                }
-            }
-            else printf("\n%s - Not Found", aux.licensePlate);
-        }
+        //         for(int i = parked.top; i != (parked.top- 1); i++) {
+        //             printf("\n%s - Parked ", waiting.cars[i].licensePlate);
+        //             push(pop(&waiting), &parked);
+        //         }
+        //     }
+        //     else printf("\n%s - Not Found", aux.licensePlate);
+        // }
     }
 
 
