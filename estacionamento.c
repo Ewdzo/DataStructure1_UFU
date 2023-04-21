@@ -1,39 +1,48 @@
 #include <stdio.h>
 #include <string.h>
-#define N 10
 
 typedef struct{
     int top;
-    char licensePlate[N][8];
+    char licensePlate[10][9];
 } stack;
 
 void push(char *x, stack *stack){
-    if ((*stack).top == (N-1)) printf("%s", "stack overflow");
-    else *(*stack).licensePlate[(++(*stack).top)] = *x;
+    if ((*stack).top == (9)) printf("%s", "stack overflow");
+    else {
+        (++(*stack).top);
+
+        for(int i = 0; i<9; i++) {
+            (*stack).licensePlate[((*stack).top)][i] = x[i];
+        }
+    }
 }
 
 char *pop(stack *stack){
     if ((*stack).top == -1){
         printf("%s", "stack underflow");
-        return '0';
+        return NULL;
     }
     else return((*stack).licensePlate[(*stack).top--]);
 };
 
 void main(){
     stack parked, waiting;
+    parked.top = -1;
+    waiting.top = -1;
+
     char input[10];
-    char aux[8];
+    char aux[9];
 
     while(1){
         printf("\nInsert Char and Plate (Ex: C AAA-0000): ");
         gets(input);
         setbuf(NULL, stdin);
 
+        for(int i = 0; i<9; i++) { aux[i] = input[i+2]; };
+        
         if(input[0] == 'C') {
-            for(int i = 0; i<9; i++) { aux[i] = input[i+2]; }
 
-            if(parked.top != (N-1)) {
+         if(parked.top != 9) {   
                 push(aux, &parked);
                 printf("\n%s - Parked ", aux);
             }
@@ -43,12 +52,7 @@ void main(){
             };
         }
         else if(input[0] == 'P') {
-            printf("hi"); 
             int position = -1;
-
-            for(int i = 0; i<9; i++) {
-                aux[i] = input[i+2]; 
-            }
 
             for(int i = 0; i <= parked.top; i++) { 
                 if(aux == parked.licensePlate[i]) position = i; 
