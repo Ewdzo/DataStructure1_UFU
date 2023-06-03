@@ -261,6 +261,24 @@ void listarProdutos(){
     }
 };
 
+void estoqueProduto(int estoque){
+    produto *aux; 
+    if(inicio_produto == NULL) printf("\n\n== Nao ha Produtos Cadastrados ==\n\n");
+    else {
+        aux = inicio_produto;
+
+        while(aux != NULL){ 
+            if(aux->estoque < estoque){
+                printf("\nCodigo: %d", aux->codigo);
+                printf("\nDescricao: %s", aux->descricao);
+                printf("\nEstoque: %d", aux->estoque);
+                printf("\nPreco Unitario: %0.2f\n\n", aux->preco_unitario);
+            }
+            aux = aux->prox; 
+        }
+    }
+}
+
 void main(){
     int option = 0;
 
@@ -454,6 +472,14 @@ void main(){
         else if(option == 14) listarProdutos();
         else if(option == 15){}
         else if(option == 16){}
-        else if(option == 17){}
+        else if(option == 17){
+            int estoque_aux;
+            
+            printf("\nInsira o Valor Maximo de Estoque a Checar: ");
+            setbuf(stdin, NULL);
+            scanf("%d", &estoque_aux);
+
+            estoqueProduto(estoque_aux);
+        }
     }
 }
