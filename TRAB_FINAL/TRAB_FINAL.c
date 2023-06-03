@@ -96,6 +96,26 @@ void alterarCliente(long long int cpf_busca, char nome[50], long long int telefo
         }
     }
 }
+
+void consultaCliente(long long int cpf_busca){
+     cliente *aux; 
+    if(inicio_cliente == NULL) printf("\n\n== Não há Clientes Cadastrados ==\n\n");
+    else {
+        aux = inicio_cliente;
+
+        while(aux->prox != NULL || aux->cpf == cpf_busca){ 
+            if(aux->cpf == cpf_busca){
+                printf("\n\n== Cliente de CPF %d ==\n\n", cpf_busca);
+                printf("\nNome: %s", aux->nome);
+                printf("\nTelefone: %lld", aux->telefone);
+                printf("\nEndereco: %s - %d - %s - %s", (aux->endereco).rua, (aux->endereco).numero, (aux->endereco).cidade, (aux->endereco).estado);
+                printf("\nData de Nascimento: %d/%d/%d\n", (aux->data_nasc).dia, (aux->data_nasc).mes, (aux->data_nasc).ano);
+                return;
+            }
+            aux = aux->prox; 
+        }
+    }
+}
 void main(){
     int option = 0;
 
@@ -191,7 +211,15 @@ void main(){
 
             alterarCliente(cpf_aux, nome_aux, telefone_aux, endereco_cliente_aux, data_nasc_aux);
         }
-        else if(option == 3){}
+        else if(option == 3){
+            long long int cpf_aux;
+            
+            printf("\nInsira o CPF do Cliente a Buscar: ");
+            setbuf(stdin, NULL);
+            scanf("%lld", &cpf_aux);
+
+            consultaCliente(cpf_aux);
+        }
         else if(option == 4){}
         else if(option == 5){}
         else if(option == 6){}
