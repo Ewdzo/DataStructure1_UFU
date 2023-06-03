@@ -83,13 +83,13 @@ void alterarCliente(long long int cpf_busca, char nome[50], long long int telefo
     else {
         aux = inicio_cliente;
 
-        while(aux->prox != NULL || aux->cpf == cpf_busca){ 
+        while(aux != NULL){ 
             if(aux->cpf == cpf_busca){
                 strcpy(aux->nome, nome);
                 aux->telefone = telefone;
                 aux->endereco = endereco_cliente;
                 aux->data_nasc = data_nasc;
-                printf("\n\n== Cliente de CPF %d Alterado ==\n\n", cpf_busca);
+                printf("\n\n== Cliente de CPF %lld Alterado ==\n\n", cpf_busca);
                 return;
             }
             aux = aux->prox; 
@@ -98,14 +98,14 @@ void alterarCliente(long long int cpf_busca, char nome[50], long long int telefo
 }
 
 void consultaCliente(long long int cpf_busca){
-     cliente *aux; 
+    cliente *aux; 
     if(inicio_cliente == NULL) printf("\n\n== Não há Clientes Cadastrados ==\n\n");
     else {
         aux = inicio_cliente;
 
-        while(aux->prox != NULL || aux->cpf == cpf_busca){ 
+        while(aux != NULL){ 
             if(aux->cpf == cpf_busca){
-                printf("\n\n== Cliente de CPF %d ==\n\n", cpf_busca);
+                printf("\n\n== Cliente de CPF %lld ==\n\n", cpf_busca);
                 printf("\nNome: %s", aux->nome);
                 printf("\nTelefone: %lld", aux->telefone);
                 printf("\nEndereco: %s - %d - %s - %s", (aux->endereco).rua, (aux->endereco).numero, (aux->endereco).cidade, (aux->endereco).estado);
@@ -116,6 +116,24 @@ void consultaCliente(long long int cpf_busca){
         }
     }
 }
+
+void listarClientes(){
+    cliente *aux; 
+    if(inicio_cliente == NULL) printf("\n\n== Não há Clientes Cadastrados ==\n\n");
+    else {
+        aux = inicio_cliente;
+
+        while(aux != NULL){ 
+            printf("\nCPF: %lld", aux->cpf);
+            printf("\nNome: %s", aux->nome);
+            printf("\nTelefone: %lld", aux->telefone);
+            printf("\nEndereco: %s - %d - %s - %s", (aux->endereco).rua, (aux->endereco).numero, (aux->endereco).cidade, (aux->endereco).estado);
+            printf("\nData de Nascimento: %d/%d/%d\n\n", (aux->data_nasc).dia, (aux->data_nasc).mes, (aux->data_nasc).ano);
+            aux = aux->prox; 
+        }
+    }
+};
+
 void main(){
     int option = 0;
 
@@ -229,7 +247,7 @@ void main(){
         else if(option == 10){}
         else if(option == 11){}
         else if(option == 12){}
-        else if(option == 13){}
+        else if(option == 13) listarClientes();
         else if(option == 14){}
         else if(option == 15){}
         else if(option == 16){}
