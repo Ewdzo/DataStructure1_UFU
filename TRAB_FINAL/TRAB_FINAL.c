@@ -50,7 +50,7 @@ produto *inicio_produto = NULL;
 venda *inicio_venda = NULL;
 
 void insereCliente(cliente *clienteNovo, long long int cpf, char nome[50], long long int telefone, endereco endereco_cliente, data data_nasc){
-    cliente *aux, *p;
+    cliente *aux;
 
     clienteNovo->cpf = cpf;
     strcpy(clienteNovo->nome, nome);
@@ -69,11 +69,10 @@ void insereCliente(cliente *clienteNovo, long long int cpf, char nome[50], long 
                 printf("\n== CPF ja registrado ==\n");
                 return;
             }
-            p = aux;
+            clienteNovo->ant = aux;
             aux = aux->prox; 
         }
         aux->prox = clienteNovo;
-        aux->ant = p;
     }
 
     printf("\n\n== Cliente Registrado ==");
