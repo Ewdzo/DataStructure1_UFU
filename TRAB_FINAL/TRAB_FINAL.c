@@ -57,21 +57,30 @@ void insereCliente(cliente *clienteNovo, long long int cpf, char nome[50], long 
     clienteNovo->telefone = telefone;
     clienteNovo->endereco = endereco_cliente;
     clienteNovo->data_nasc = data_nasc;
+    clienteNovo->prox = NULL;
     
     if(inicio_cliente == NULL) inicio_cliente = clienteNovo;
     else {
         aux = inicio_cliente;
 
-        while(aux->prox!=NULL){ aux = aux->prox; }
+        while(aux->prox != NULL){ 
+            if(aux->cpf == cpf){
+                printf("\n== CPF ja registrado ==\n");
+                return;
+            }
+            aux = aux->prox; 
+        }
         aux->prox = clienteNovo;
     }
+
+    printf("\n\n== Cliente Registrado ==");
 }
 
 void main(){
     int option = 0;
 
-    while(option != 19){
-        printf("\n1 - Insercao de Cliente\n2 - Alteracao de Cliente\n3 - Consulta de Cliente\n4 - Delecao de Cliente\n\n5 - Insercao de Produto\n6 - Alteracao de Produto\n7 - Consulta de Produto\n8 - Delecao de Produto\n\n9 - Insercao de Venda\n10 - Alteracao de Venda\n11 - Consulta de Venda\n12 - Delecao de Venda\n\n14 - Listar Clientes\n15 - Listar Produtos\n16 - Listar Vendas\n17 - Checar Clientes por Gasto\n18 - Checar Estoque Baixo\n19 - Sair\n\nOpcao: ");
+    while(option != 18){
+        printf("\n\n1 - Insercao de Cliente\n2 - Alteracao de Cliente\n3 - Consulta de Cliente\n4 - Delecao de Cliente\n\n5 - Insercao de Produto\n6 - Alteracao de Produto\n7 - Consulta de Produto\n8 - Delecao de Produto\n\n9 - Insercao de Venda\n10 - Alteracao de Venda\n11 - Consulta de Venda\n12 - Delecao de Venda\n\n13 - Listar Clientes\n14 - Listar Produtos\n15 - Listar Vendas\n16 - Checar Clientes por Gasto\n17 - Checar Estoque Baixo\n18 - Sair\n\nOpcao: ");
         
         scanf("%d", &option);
         setbuf(stdin, NULL);
@@ -121,5 +130,21 @@ void main(){
             if(!aux_cliente) printf("\nOut of Memory");
             else insereCliente(aux_cliente, cpf_aux, nome_aux, telefone_aux, endereco_cliente_aux, data_nasc_aux);
         }
+        else if(option == 2){}
+        else if(option == 3){}
+        else if(option == 4){}
+        else if(option == 5){}
+        else if(option == 6){}
+        else if(option == 7){}
+        else if(option == 8){}
+        else if(option == 9){}
+        else if(option == 10){}
+        else if(option == 11){}
+        else if(option == 12){}
+        else if(option == 13){}
+        else if(option == 14){}
+        else if(option == 15){}
+        else if(option == 16){}
+        else if(option == 17){}
     }
 }
