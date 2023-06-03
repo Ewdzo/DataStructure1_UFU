@@ -50,7 +50,7 @@ produto *inicio_produto = NULL;
 venda *inicio_venda = NULL;
 
 void insereCliente(cliente *clienteNovo, long long int cpf, char nome[50], long long int telefone, endereco endereco_cliente, data data_nasc){
-    cliente *aux;
+    cliente *aux, *p;
 
     clienteNovo->cpf = cpf;
     strcpy(clienteNovo->nome, nome);
@@ -58,6 +58,7 @@ void insereCliente(cliente *clienteNovo, long long int cpf, char nome[50], long 
     clienteNovo->endereco = endereco_cliente;
     clienteNovo->data_nasc = data_nasc;
     clienteNovo->prox = NULL;
+    clienteNovo->ant = NULL;
     
     if(inicio_cliente == NULL) inicio_cliente = clienteNovo;
     else {
@@ -68,9 +69,11 @@ void insereCliente(cliente *clienteNovo, long long int cpf, char nome[50], long 
                 printf("\n== CPF ja registrado ==\n");
                 return;
             }
+            p = aux;
             aux = aux->prox; 
         }
         aux->prox = clienteNovo;
+        aux->ant = p;
     }
 
     printf("\n\n== Cliente Registrado ==");
@@ -112,6 +115,27 @@ void consultaCliente(long long int cpf_busca){
                 printf("\nData de Nascimento: %d/%d/%d\n", (aux->data_nasc).dia, (aux->data_nasc).mes, (aux->data_nasc).ano);
                 return;
             }
+            aux = aux->prox; 
+        }
+    }
+}
+
+void removerCliente(long long int cpf_busca){
+    cliente *aux, *p; 
+
+    if(inicio_cliente == NULL) printf("\n\n== Não há Clientes Cadastrados ==\n\n");
+    else {
+        aux = inicio_cliente;
+        p = aux;
+
+        while(aux != NULL){ 
+            if(aux->cpf == cpf_busca){
+                (p)->prox = aux->prox;
+                free(aux);
+                printf("\n\n== Cliente de CPF %lld Removido ==\n\n", cpf_busca);
+                return;
+            }
+            p = aux;
             aux = aux->prox; 
         }
     }
@@ -238,7 +262,15 @@ void main(){
 
             consultaCliente(cpf_aux);
         }
-        else if(option == 4){}
+        else if(option == 4){
+            long long int cpf_aux;
+            
+            printf("\nInsira o CPF do Cliente a Remover: ");
+            setbuf(stdin, NULL);
+            scanf("%lld", &cpf_aux);
+
+            removerCliente(cpf_aux);
+        }
         else if(option == 5){}
         else if(option == 6){}
         else if(option == 7){}
