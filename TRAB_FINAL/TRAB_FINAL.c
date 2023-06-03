@@ -58,8 +58,12 @@ void insereCliente(cliente *clienteNovo, long long int cpf, char nome[50], long 
     clienteNovo->endereco = endereco_cliente;
     clienteNovo->data_nasc = data_nasc;
     
-    if(inicio_cliente == NULL){
-        printf("Quem diria");
+    if(inicio_cliente == NULL) inicio_cliente = clienteNovo;
+    else {
+        aux = inicio_cliente;
+
+        while(aux->prox!=NULL){ aux = aux->prox; }
+        aux->prox = clienteNovo;
     }
 }
 
@@ -107,7 +111,7 @@ void main(){
             setbuf(stdin, NULL);
             gets(endereco_cliente_aux.estado);
 
-            printf("\nInsira o Dia do Nascimento (DD/MM/AAAA):");
+            printf("\nInsira o Dia do Nascimento (DD/MM/AAAA): ");
             setbuf(stdin, NULL);
             scanf("%d/%d/%d", &(data_nasc_aux.dia), &(data_nasc_aux.mes), &(data_nasc_aux.ano));
             setbuf(stdin, NULL);
