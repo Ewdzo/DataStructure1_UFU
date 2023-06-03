@@ -81,7 +81,7 @@ void insereCliente(cliente *clienteNovo, long long int cpf, char nome[50], long 
 void alterarCliente(long long int cpf_busca, char nome[50], long long int telefone, endereco endereco_cliente, data data_nasc){
     cliente *aux; 
 
-    if(inicio_cliente == NULL) printf("\n\n== Não há Clientes Cadastrados ==\n\n");
+    if(inicio_cliente == NULL) printf("\n\n== Nao ha Clientes Cadastrados ==\n\n");
     else {
         aux = inicio_cliente;
 
@@ -101,7 +101,7 @@ void alterarCliente(long long int cpf_busca, char nome[50], long long int telefo
 
 void consultaCliente(long long int cpf_busca){
     cliente *aux; 
-    if(inicio_cliente == NULL) printf("\n\n== Não há Clientes Cadastrados ==\n\n");
+    if(inicio_cliente == NULL) printf("\n\n== Nao ha Clientes Cadastrados ==\n\n");
     else {
         aux = inicio_cliente;
 
@@ -122,7 +122,7 @@ void consultaCliente(long long int cpf_busca){
 void removerCliente(long long int cpf_busca){
     cliente *aux, *p; 
 
-    if(inicio_cliente == NULL) printf("\n\n== Não há Clientes Cadastrados ==\n\n");
+    if(inicio_cliente == NULL) printf("\n\n== Nao ha Clientes Cadastrados ==\n\n");
     else {
         aux = inicio_cliente;
         p = aux;
@@ -142,7 +142,7 @@ void removerCliente(long long int cpf_busca){
 
 void listarClientes(){
     cliente *aux; 
-    if(inicio_cliente == NULL) printf("\n\n== Não há Clientes Cadastrados ==\n\n");
+    if(inicio_cliente == NULL) printf("\n\n== Nao ha Clientes Cadastrados ==\n\n");
     else {
         aux = inicio_cliente;
 
@@ -188,7 +188,7 @@ void insereProduto(produto *produtoNovo, int codigo, char descricao[100], int es
 void alterarProduto(int codigo_busca, char descricao[100], int estoque, float preco_unitario){
     produto *aux; 
 
-    if(inicio_produto == NULL) printf("\n\n== Não há Clientes Cadastrados ==\n\n");
+    if(inicio_produto == NULL) printf("\n\n== Nao ha Clientes Cadastrados ==\n\n");
     else {
         aux = inicio_produto;
 
@@ -207,7 +207,7 @@ void alterarProduto(int codigo_busca, char descricao[100], int estoque, float pr
 
 void consultaProduto(int codigo_busca){
     produto *aux; 
-    if(inicio_produto == NULL) printf("\n\n== Não há Produtos Cadastrados ==\n\n");
+    if(inicio_produto == NULL) printf("\n\n== Nao ha Produtos Cadastrados ==\n\n");
     else {
         aux = inicio_produto;
 
@@ -227,7 +227,7 @@ void consultaProduto(int codigo_busca){
 void removerProduto(int codigo_busca){
     produto *aux, *p; 
 
-    if(inicio_produto == NULL) printf("\n\n== Não há Produtos Cadastrados ==\n\n");
+    if(inicio_produto == NULL) printf("\n\n== Nao ha Produtos Cadastrados ==\n\n");
     else {
         aux = inicio_produto;
         p = aux;
