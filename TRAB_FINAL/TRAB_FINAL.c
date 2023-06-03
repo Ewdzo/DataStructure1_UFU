@@ -41,8 +41,8 @@ typedef struct transaction{
     int cod_produto;
     int qtd_comprada;
     
-    struct transacao *prox;
-    struct transacao *ant;
+    struct transaction *prox;
+    struct transaction *ant;
 } venda;
 
 cliente *inicio_cliente = NULL;
@@ -64,7 +64,7 @@ void insereCliente(cliente *clienteNovo, long long int cpf, char nome[50], long 
     else {
         aux = inicio_cliente;
 
-        while(aux != NULL){ 
+        while(aux->prox != NULL){ 
             if(aux->cpf == cpf){
                 printf("\n== CPF Ja Registrado ==\n");
                 return;
@@ -167,11 +167,11 @@ void insereProduto(produto *produtoNovo, int codigo, char descricao[100], int es
     produtoNovo->prox = NULL;
     produtoNovo->ant = NULL;
     
-    if(inicio_cliente == NULL) inicio_cliente = produtoNovo;
+    if(inicio_produto == NULL) inicio_produto = produtoNovo;
     else {
-        aux = inicio_cliente;
+        aux = inicio_produto;
 
-        while(aux != NULL){ 
+        while(aux->prox != NULL){ 
             if(aux->codigo == codigo){
                 printf("\n== Codigo Ja Registrado ==\n");
                 return;
@@ -183,6 +183,45 @@ void insereProduto(produto *produtoNovo, int codigo, char descricao[100], int es
     }
 
     printf("\n\n== Produto Registrado ==");
+}
+
+void alterarProduto(int codigo_busca, char descricao[100], int estoque, float preco_unitario){
+    produto *aux; 
+
+    if(inicio_produto == NULL) printf("\n\n== Não há Clientes Cadastrados ==\n\n");
+    else {
+        aux = inicio_produto;
+
+        while(aux != NULL){ 
+            if(aux->codigo == codigo_busca){
+                strcpy(aux->descricao, descricao);
+                aux->estoque = estoque;
+                aux->preco_unitario = preco_unitario;
+                printf("\n\n== Produto de Codigo %d Alterado ==\n\n", codigo_busca);
+                return;
+            }
+            aux = aux->prox; 
+        }
+    }
+}
+
+void consultaProduto(int codigo_busca){
+    produto *aux; 
+    if(inicio_produto == NULL) printf("\n\n== Não há Produtos Cadastrados ==\n\n");
+    else {
+        aux = inicio_produto;
+
+        while(aux != NULL){ 
+            if(aux->codigo == codigo_busca){
+                printf("\n\n== Produto de Codigo %d ==\n\n", codigo_busca);
+                printf("\nDescricao: %s", aux->descricao);
+                printf("\nEstoque: %d", aux->estoque);
+                printf("\nPreco Unitario: %0.2f\n", aux->preco_unitario);
+                return;
+            }
+            aux = aux->prox; 
+        }
+    }
 }
 
 void main(){
@@ -325,7 +364,33 @@ void main(){
             if(!aux_produto) printf("\nOut of Memory");
             else insereProduto(aux_produto, codigo_aux, descricao_aux, estoque_aux, preco_unitario_aux);
         }
-        else if(option == 6){}
+        else if(option == 6){
+            produto *aux_produto;
+            int codigo_aux, estoque_aux;
+            char descricao_aux[100];
+            float preco_unitario_aux;
+
+            printf("\nInsira o Codigo do Produto a Alterar: ");
+            setbuf(stdin, NULL);
+            scanf("%d", &codigo_aux);
+
+            printf("\nInsira a Nova Descricao: ");
+            setbuf(stdin, NULL);
+            gets(descricao_aux);
+
+            printf("\nInsira o Novo Estoque: ");
+            setbuf(stdin, NULL);
+            scanf("%d", &estoque_aux);
+
+            printf("\nInsira o Novo Preco Unitario: ");
+            setbuf(stdin, NULL);
+            scanf("%f", &preco_unitario_aux);
+
+            aux_produto = (produto *)malloc(sizeof(produto));
+ 
+            if(!aux_produto) printf("\nOut of Memory");
+            else alterarProduto(codigo_aux, descricao_aux, estoque_aux, preco_unitario_aux);
+        }
         else if(option == 7){}
         else if(option == 8){}
         else if(option == 9){}
