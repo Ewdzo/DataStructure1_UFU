@@ -29,7 +29,7 @@ typedef struct product{
     int codigo;
     char descricao[100];
     int estoque;
-    int preco_unitario;
+    float preco_unitario;
 
     struct product *prox;
     struct product *ant;
@@ -64,9 +64,9 @@ void insereCliente(cliente *clienteNovo, long long int cpf, char nome[50], long 
     else {
         aux = inicio_cliente;
 
-        while(aux->prox != NULL){ 
+        while(aux != NULL){ 
             if(aux->cpf == cpf){
-                printf("\n== CPF ja registrado ==\n");
+                printf("\n== CPF Ja Registrado ==\n");
                 return;
             }
             clienteNovo->ant = aux;
@@ -156,6 +156,34 @@ void listarClientes(){
         }
     }
 };
+
+void insereProduto(produto *produtoNovo, int codigo, char descricao[100], int estoque, float preco_unitario){
+    produto *aux;
+
+    produtoNovo->codigo = codigo;
+    strcpy(produtoNovo->descricao, descricao);
+    produtoNovo->estoque = estoque;
+    produtoNovo->preco_unitario = preco_unitario;
+    produtoNovo->prox = NULL;
+    produtoNovo->ant = NULL;
+    
+    if(inicio_cliente == NULL) inicio_cliente = produtoNovo;
+    else {
+        aux = inicio_cliente;
+
+        while(aux != NULL){ 
+            if(aux->codigo == codigo){
+                printf("\n== Codigo Ja Registrado ==\n");
+                return;
+            }
+            produtoNovo->ant = aux;
+            aux = aux->prox; 
+        }
+        aux->prox = produtoNovo;
+    }
+
+    printf("\n\n== Produto Registrado ==");
+}
 
 void main(){
     int option = 0;
@@ -270,7 +298,33 @@ void main(){
 
             removerCliente(cpf_aux);
         }
-        else if(option == 5){}
+        else if(option == 5){
+            produto *aux_produto;
+            int codigo_aux, estoque_aux;
+            char descricao_aux[100];
+            float preco_unitario_aux;
+
+            printf("\nInsira o Codigo: ");
+            setbuf(stdin, NULL);
+            scanf("%d", &codigo_aux);
+
+            printf("\nInsira a Descricao: ");
+            setbuf(stdin, NULL);
+            gets(descricao_aux);
+
+            printf("\nInsira o Estoque: ");
+            setbuf(stdin, NULL);
+            scanf("%d", &estoque_aux);
+
+            printf("\nInsira o Preco Unitario: ");
+            setbuf(stdin, NULL);
+            scanf("%f", &preco_unitario_aux);
+
+            aux_produto = (produto *)malloc(sizeof(produto));
+ 
+            if(!aux_produto) printf("\nOut of Memory");
+            else insereProduto(aux_produto, codigo_aux, descricao_aux, estoque_aux, preco_unitario_aux);
+        }
         else if(option == 6){}
         else if(option == 7){}
         else if(option == 8){}
