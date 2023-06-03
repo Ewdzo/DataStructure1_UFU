@@ -41,7 +41,7 @@ typedef struct transaction{
     int cod_produto;
     int qtd_comprada;
     
-    struct transacao*prox;
+    struct transacao *prox;
     struct transacao *ant;
 } venda;
 
@@ -76,6 +76,26 @@ void insereCliente(cliente *clienteNovo, long long int cpf, char nome[50], long 
     printf("\n\n== Cliente Registrado ==");
 }
 
+void alterarCliente(long long int cpf_busca, char nome[50], long long int telefone, endereco endereco_cliente, data data_nasc){
+    cliente *aux; 
+
+    if(inicio_cliente == NULL) printf("\n\n== Não há Clientes Cadastrados ==\n\n");
+    else {
+        aux = inicio_cliente;
+
+        while(aux->prox != NULL || aux->cpf == cpf_busca){ 
+            if(aux->cpf == cpf_busca){
+                strcpy(aux->nome, nome);
+                aux->telefone = telefone;
+                aux->endereco = endereco_cliente;
+                aux->data_nasc = data_nasc;
+                printf("\n\n== Cliente de CPF %d Alterado ==\n\n", cpf_busca);
+                return;
+            }
+            aux = aux->prox; 
+        }
+    }
+}
 void main(){
     int option = 0;
 
@@ -130,7 +150,47 @@ void main(){
             if(!aux_cliente) printf("\nOut of Memory");
             else insereCliente(aux_cliente, cpf_aux, nome_aux, telefone_aux, endereco_cliente_aux, data_nasc_aux);
         }
-        else if(option == 2){}
+        else if(option == 2){
+            long long int cpf_aux, telefone_aux;
+            char nome_aux[50];
+            endereco endereco_cliente_aux;
+            data data_nasc_aux;
+
+            printf("\nInsira o CPF do Cliente a Alterar: ");
+            setbuf(stdin, NULL);
+            scanf("%lld", &cpf_aux);
+
+            printf("\nInsira o Novo Nome: ");
+            setbuf(stdin, NULL);
+            gets(nome_aux);
+
+            printf("\nInsira o Novo Telefone: ");
+            setbuf(stdin, NULL);
+            scanf("%lld", &telefone_aux);
+
+            printf("\nInsira a Nova Rua do Endereco: ");
+            setbuf(stdin, NULL);
+            gets(endereco_cliente_aux.rua);
+
+            printf("\nInsira o Novo Numero do Endereco: ");
+            setbuf(stdin, NULL);
+            scanf("%d", &(endereco_cliente_aux.numero));
+
+            printf("\nInsira a Nova Cidade do Endereco: ");
+            setbuf(stdin, NULL);
+            gets(endereco_cliente_aux.cidade);
+
+            printf("\nInsira o Novo Estado do Endereco: ");
+            setbuf(stdin, NULL);
+            gets(endereco_cliente_aux.estado);
+
+            printf("\nInsira o Novo Dia do Nascimento (DD/MM/AAAA): ");
+            setbuf(stdin, NULL);
+            scanf("%d/%d/%d", &(data_nasc_aux.dia), &(data_nasc_aux.mes), &(data_nasc_aux.ano));
+            setbuf(stdin, NULL);
+
+            alterarCliente(cpf_aux, nome_aux, telefone_aux, endereco_cliente_aux, data_nasc_aux);
+        }
         else if(option == 3){}
         else if(option == 4){}
         else if(option == 5){}
