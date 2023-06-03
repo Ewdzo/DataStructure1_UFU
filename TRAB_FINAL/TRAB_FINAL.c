@@ -245,6 +245,22 @@ void removerProduto(int codigo_busca){
     }
 }
 
+void listarProdutos(){
+    produto *aux; 
+    if(inicio_produto == NULL) printf("\n\n== Nao ha Produtos Cadastrados ==\n\n");
+    else {
+        aux = inicio_produto;
+
+        while(aux != NULL){ 
+            printf("\nCodigo: %d", aux->codigo);
+            printf("\nDescricao: %s", aux->descricao);
+            printf("\nEstoque: %d", aux->estoque);
+            printf("\nPreco Unitario: %0.2f\n\n", aux->preco_unitario);
+            aux = aux->prox; 
+        }
+    }
+};
+
 void main(){
     int option = 0;
 
@@ -435,7 +451,7 @@ void main(){
         else if(option == 11){}
         else if(option == 12){}
         else if(option == 13) listarClientes();
-        else if(option == 14){}
+        else if(option == 14) listarProdutos();
         else if(option == 15){}
         else if(option == 16){}
         else if(option == 17){}
