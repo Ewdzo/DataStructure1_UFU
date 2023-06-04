@@ -311,7 +311,7 @@ void inserirVenda(venda *vendaNova, int codVenda, long long int cpf_cliente, int
                     printf("\n\n== Quantidade Insuficiente Em Estoque ==");
                     return;
                 }
-                produto_aux->estoque = (produto_aux->estoque - qtd_comprada);
+                produto_aux->estoque -= qtd_comprada;
                 produtoConfirmado = 1;
             }
             produto_aux = produto_aux->prox; 
@@ -348,63 +348,63 @@ void inserirVenda(venda *vendaNova, int codVenda, long long int cpf_cliente, int
     printf("\n\n== Venda Registrada ==");
 }
 
-void alterarVenda(venda *vendaNova, int codVenda, long long int cpf_cliente, int cod_produto, int qtd_comprada){
+void alterarVenda(int codVenda_busca, long long int cpf_cliente, int cod_produto, int qtd_comprada){
     venda *aux;
-    cliente *cliente_aux;
-    produto *produto_aux;
 
-    int clienteConfirmado = 0, produtoConfirmado = 0;
-
-    if(inicio_cliente == NULL || inicio_produto == NULL) {
-        printf("\n\n== Nao Existem Clientes ou Produtos Cadastrados ==");
+    if(inicio_venda == NULL) {
+        printf("\n\n== Nao Existem Vendas Cadastradas ==");
         return;
     }
     else {
-        cliente_aux = inicio_cliente;
-        produto_aux = inicio_produto;
+       aux = inicio_venda;
 
-        while(cliente_aux != NULL){ 
-            if(cliente_aux->cpf == cpf_cliente) clienteConfirmado = 1;
-            cliente_aux = cliente_aux->prox; 
-        }
+        while(aux != NULL){
+            if(aux->codVenda == codVenda_busca){
+                int clienteConfirmado = 0, produtoConfirmado = 0;
+                cliente *cliente_aux = inicio_cliente;
+                produto *produto_aux = inicio_produto;
 
-        while(produto_aux != NULL){ 
-            if(produto_aux->codigo == cod_produto) {
-                if(produto_aux->estoque < qtd_comprada) {
-                    printf("\n\n== Quantidade Insuficiente Em Estoque ==");
-                    return;
+                while(cliente_aux != NULL){ 
+                    if(cliente_aux->cpf == cpf_cliente) clienteConfirmado = 1;
+                    cliente_aux = cliente_aux->prox; 
                 }
-                produto_aux->estoque = (produto_aux->estoque - qtd_comprada);
-                produtoConfirmado = 1;
-            }
-            produto_aux = produto_aux->prox; 
-        }
 
-        if(!clienteConfirmado || !produtoConfirmado){
-            printf("\n\n=== Cliente ou Produto Nao Encontrado ===");
-            return;
-        }
-
-        vendaNova->codVenda = codVenda;
-        vendaNova->cpf_cliente = cpf_cliente;
-        vendaNova->cod_produto = cod_produto;
-        vendaNova->qtd_comprada = qtd_comprada;
-        vendaNova->prox = NULL;
-        vendaNova->ant = NULL;
-
-        if(inicio_venda == NULL) inicio_venda = vendaNova;
-        else {
-            aux = inicio_venda;
-
-            while(aux->prox != NULL){ 
-                if(aux->codVenda == codVenda){
-                    printf("\n== Codigo Ja Registrado ==\n");
-                    return;
+                while(produto_aux != NULL){ 
+                    if(produto_aux->codigo == cod_produto) produtoConfirmado = 1;
+                    produto_aux = produto_aux->prox; 
                 }
-                vendaNova->ant = aux;
-                aux = aux->prox; 
+
+                if(!clienteConfirmado || !produtoConfirmado){
+                    printf("\n\n=== Cliente ou Produto Inserido Nao Encontrado ===");
+                    return;
+                }     
+
+                produto_aux = inicio_produto;
+                while(produto_aux != NULL){ 
+                    if(produto_aux->codigo == aux->cod_produto && produto_aux->codigo != cod_produto) produto_aux->estoque =+ aux->qtd_comprada;
+                    produto_aux = produto_aux->prox;
+                }
+
+                produto_aux = inicio_produto;
+                while(produto_aux != NULL && produtoConfirmado){ 
+                    if(produto_aux->codigo == aux->cod_produto && produto_aux->codigo == cod_produto) produto_aux->estoque =+ aux->qtd_comprada;
+                    if(produto_aux->codigo == cod_produto) {
+                        if(produto_aux->estoque < qtd_comprada) {
+                            printf("\n\n== Quantidade Insuficiente Em Estoque ==");
+                            return;
+                        }
+
+                        produto_aux->estoque -= qtd_comprada;
+                    }
+                    produto_aux = produto_aux->prox; 
+                }
+
+
+                aux->cpf_cliente = cpf_cliente;
+                aux->cod_produto = cod_produto;
+                aux->qtd_comprada = qtd_comprada;
             }
-            aux->prox = vendaNova;
+            aux = aux->prox;
         }
     }
 
@@ -622,7 +622,28 @@ void main(){
             if(!aux_venda) printf("\nFalta de Memoria");
             else inserirVenda(aux_venda, codVenda_aux, cpf_cliente_aux, codProduto_aux, qtd_comprada_aux);
         }
-        else if(option == 10){}
+        else if(option == 10){
+            int codVenda_aux, codProduto_aux, qtd_comprada_aux;
+            long long int cpf_cliente_aux;
+
+            printf("\nInsira o Codigo da Venda A Alterar: ");
+            setbuf(stdin, NULL);
+            scanf("%d", &codVenda_aux);
+
+            printf("\nInsira o CPF do Novo Cliente: ");
+            setbuf(stdin, NULL);
+            scanf("%lld", &cpf_cliente_aux);
+
+            printf("\nInsira o Codigo do Novo Produto: ");
+            setbuf(stdin, NULL);
+            scanf("%d", &codProduto_aux);
+
+            printf("\nInsira a Nova Quantidade Comprada do Produto: ");
+            setbuf(stdin, NULL);
+            scanf("%d", &qtd_comprada_aux);
+
+            alterarVenda(codVenda_aux, cpf_cliente_aux, codProduto_aux, qtd_comprada_aux);
+        }
         else if(option == 11){}
         else if(option == 12){}
         else if(option == 13) listarClientes();
