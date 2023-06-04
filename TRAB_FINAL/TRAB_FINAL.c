@@ -130,7 +130,10 @@ void removerCliente(long long int cpf_busca){
         while(aux != NULL){ 
             if(aux->cpf == cpf_busca){
                 (p)->prox = aux->prox;
+
+                if(aux->ant == NULL) inicio_cliente = NULL;
                 free(aux);
+
                 printf("\n\n== Cliente de CPF %lld Removido ==\n\n", cpf_busca);
                 return;
             }
@@ -235,7 +238,10 @@ void removerProduto(int codigo_busca){
         while(aux != NULL){ 
             if(aux->codigo == codigo_busca){
                 (p)->prox = aux->prox;
+
+                if(aux->ant == NULL) inicio_produto = NULL;
                 free(aux);
+                
                 printf("\n\n== Produto de Codigo %d Removido ==\n\n", codigo_busca);
                 return;
             }
