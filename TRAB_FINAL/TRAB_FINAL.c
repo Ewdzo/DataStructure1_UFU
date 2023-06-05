@@ -423,7 +423,7 @@ void alterarVenda(int codVenda_busca, long long int cpf_cliente, int cod_produto
         }
     }
 
-    printf("\n\n== Venda Registrada ==");
+    printf("\n\n== Venda de Codigo %d Alterada ==", codVenda_busca);
 }
 
 void main(){
