@@ -483,6 +483,22 @@ void removerVenda(int codVenda_busca){
     }
 }
 
+void listarVendas(){
+    venda *aux; 
+    if(inicio_venda == NULL) printf("\n\n== Nao ha Vendas Cadastradas ==\n");
+    else {
+        aux = inicio_venda;
+
+        while(aux != NULL){ 
+            printf("\n\n== Venda de Codigo %d ==\n", aux->codVenda);
+            printf("\nCPF do Cliente: %lld", aux->cpf_cliente);
+            printf("\nCodigo do Produto: %d", aux->cod_produto);
+            printf("\nQuantidade Comprada: %d\n", aux->qtd_comprada);
+            aux = aux->prox; 
+        }
+    }
+}
+
 void main(){
     int option = 0;
 
@@ -736,7 +752,7 @@ void main(){
         }
         else if(option == 13) listarClientes();
         else if(option == 14) listarProdutos();
-        else if(option == 15){}
+        else if(option == 15) listarVendas();
         else if(option == 16){}
         else if(option == 17){
             int estoque_aux;
