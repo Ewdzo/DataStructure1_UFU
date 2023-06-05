@@ -437,7 +437,7 @@ void alterarVenda(int codVenda_busca, long long int cpf_cliente, int cod_produto
 
 void consultarVenda(int codVenda_busca){
     venda *aux; 
-    if(inicio_venda == NULL) printf("\n\n== Nao ha Produtos Cadastrados ==\n");
+    if(inicio_venda == NULL) printf("\n\n== Nao ha Vendas Cadastradas ==\n");
     else {
         aux = inicio_venda;
 
