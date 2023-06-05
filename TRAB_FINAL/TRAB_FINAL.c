@@ -435,6 +435,26 @@ void alterarVenda(int codVenda_busca, long long int cpf_cliente, int cod_produto
     printf("\n\n== Alteracao de Venda de Codigo %d Fracassou ==", codVenda_busca);
 }
 
+void consultarVenda(int codVenda_busca){
+    venda *aux; 
+    if(inicio_venda == NULL) printf("\n\n== Nao ha Produtos Cadastrados ==\n");
+    else {
+        aux = inicio_venda;
+
+        while(aux != NULL){ 
+            if(aux->codVenda == codVenda_busca){
+                printf("\n\n== Produto de Codigo %d ==\n", codVenda_busca);
+                printf("\nCPF do Cliente: %lld", aux->cpf_cliente);
+                printf("\nCodigo do Produto: %d", aux->cod_produto);
+                printf("\nQuantidade Comprada: %d\n", aux->qtd_comprada);
+                return;
+            }
+            aux = aux->prox; 
+        }
+    }
+}
+
+
 void main(){
     int option = 0;
 
@@ -668,7 +688,15 @@ void main(){
 
             alterarVenda(codVenda_aux, cpf_cliente_aux, codProduto_aux, qtd_comprada_aux);
         }
-        else if(option == 11){}
+        else if(option == 11){
+            int codVenda_aux;
+            
+            printf("\nInsira o Codigo da Venda a Buscar: ");
+            setbuf(stdin, NULL);
+            scanf("%d", &codVenda_aux);
+
+            consultarVenda(codVenda_aux);
+        }
         else if(option == 12){}
         else if(option == 13) listarClientes();
         else if(option == 14) listarProdutos();
