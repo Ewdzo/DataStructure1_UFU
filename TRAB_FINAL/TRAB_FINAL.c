@@ -504,6 +504,47 @@ void listarVendas(){
     }
 }
 
+void gastoCliente(int gasto_busca){
+    cliente *cliente_aux = inicio_cliente;
+    venda *aux_venda;
+    produto *produto_aux;
+    float gastoCliente, gastoProduto;
+
+    while(cliente_aux != NULL){
+        gastoCliente = 0.0;
+
+        aux_venda = inicio_venda;
+
+
+        while(aux_venda != NULL){ 
+            if(aux_venda->cpf_cliente == cliente_aux->cpf) {
+                produto_aux = inicio_produto;
+                gastoProduto = 0.0;
+
+                while(produto_aux != NULL){
+                    if(produto_aux->codigo == aux_venda->cod_produto){
+                        gastoProduto = produto_aux->preco_unitario * aux_venda->qtd_comprada;
+                        gastoCliente += gastoProduto;
+                    }
+                    produto_aux = produto_aux->prox;
+                }
+            }
+            aux_venda = aux_venda->prox; 
+        }
+
+        if(gastoCliente >= gasto_busca){
+            printf("\n\n== Cliente de CPF %lld ==\n", cliente_aux->cpf);
+            printf("\nNome: %s", cliente_aux->nome);
+            printf("\nTelefone: %lld", cliente_aux->telefone);
+            printf("\nEndereco: %s - %d - %s - %s", (cliente_aux->endereco).rua, (cliente_aux->endereco).numero, (cliente_aux->endereco).cidade, (cliente_aux->endereco).estado);
+            printf("\nData de Nascimento: %d/%d/%d\n", (cliente_aux->data_nasc).dia, (cliente_aux->data_nasc).mes, (cliente_aux->data_nasc).ano);
+            return;
+        }
+
+        cliente_aux = cliente_aux->prox;
+    }
+}
+
 void main(){
     int option = 0;
 
@@ -758,7 +799,15 @@ void main(){
         else if(option == 13) listarClientes();
         else if(option == 14) listarProdutos();
         else if(option == 15) listarVendas();
-        else if(option == 16){}
+        else if(option == 16){
+            int gasto_aux;
+            
+            printf("\nInsira o Gasto Minimo a Buscar: ");
+            setbuf(stdin, NULL);
+            scanf("%d", &gasto_aux);
+
+            gastoCliente(gasto_aux);
+        }
         else if(option == 17){
             int estoque_aux;
             
