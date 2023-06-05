@@ -86,7 +86,7 @@ void inserirCliente(cliente *clienteNovo, long long int cpf, char nome[50], long
 void alterarCliente(long long int cpf_busca, char nome[50], long long int telefone, endereco endereco_cliente, data data_nasc){
     cliente *aux; 
 
-    if(inicio_cliente == NULL) printf("\n\n== Nao ha Clientes Cadastrados ==\n\n");
+    if(inicio_cliente == NULL) printf("\n\n== Nao ha Clientes Cadastrados ==\n");
     else {
         aux = inicio_cliente;
 
@@ -96,23 +96,25 @@ void alterarCliente(long long int cpf_busca, char nome[50], long long int telefo
                 aux->telefone = telefone;
                 aux->endereco = endereco_cliente;
                 aux->data_nasc = data_nasc;
-                printf("\n\n== Cliente de CPF %lld Alterado ==\n\n", cpf_busca);
+                printf("\n\n== Cliente de CPF %lld Alterado ==\n", cpf_busca);
                 return;
             }
             aux = aux->prox; 
         }
     }
+
+    printf("\n\n== Alteracao de Cliente de CPF %lld Falhou ==\n", cpf_busca);
 }
 
 void consultarCliente(long long int cpf_busca){
     cliente *aux; 
-    if(inicio_cliente == NULL) printf("\n\n== Nao ha Clientes Cadastrados ==\n\n");
+    if(inicio_cliente == NULL) printf("\n\n== Nao ha Clientes Cadastrados ==\n");
     else {
         aux = inicio_cliente;
 
         while(aux != NULL){ 
             if(aux->cpf == cpf_busca){
-                printf("\n\n== Cliente de CPF %lld ==\n\n", cpf_busca);
+                printf("\n\n== Cliente de CPF %lld ==\n", cpf_busca);
                 printf("\nNome: %s", aux->nome);
                 printf("\nTelefone: %lld", aux->telefone);
                 printf("\nEndereco: %s - %d - %s - %s", (aux->endereco).rua, (aux->endereco).numero, (aux->endereco).cidade, (aux->endereco).estado);
@@ -127,7 +129,7 @@ void consultarCliente(long long int cpf_busca){
 void removerCliente(long long int cpf_busca){
     cliente *aux, *p; 
 
-    if(inicio_cliente == NULL) printf("\n\n== Nao ha Clientes Cadastrados ==\n\n");
+    if(inicio_cliente == NULL) printf("\n\n== Nao ha Clientes Cadastrados ==\n");
     else {
         aux = inicio_cliente;
         p = aux;
@@ -139,18 +141,20 @@ void removerCliente(long long int cpf_busca){
                 if(aux->ant == NULL) inicio_cliente = NULL;
                 free(aux);
 
-                printf("\n\n== Cliente de CPF %lld Removido ==\n\n", cpf_busca);
+                printf("\n\n== Cliente de CPF %lld Removido ==\n", cpf_busca);
                 return;
             }
             p = aux;
             aux = aux->prox; 
         }
     }
+
+    printf("\n\n== Remocao de Cliente de CPF %lld Falhou ==\n", cpf_busca);
 }
 
 void listarClientes(){
     cliente *aux; 
-    if(inicio_cliente == NULL) printf("\n\n== Nao ha Clientes Cadastrados ==\n\n");
+    if(inicio_cliente == NULL) printf("\n\n== Nao ha Clientes Cadastrados ==\n");
     else {
         aux = inicio_cliente;
 
@@ -159,7 +163,7 @@ void listarClientes(){
             printf("\nNome: %s", aux->nome);
             printf("\nTelefone: %lld", aux->telefone);
             printf("\nEndereco: %s - %d - %s - %s", (aux->endereco).rua, (aux->endereco).numero, (aux->endereco).cidade, (aux->endereco).estado);
-            printf("\nData de Nascimento: %d/%d/%d\n\n", (aux->data_nasc).dia, (aux->data_nasc).mes, (aux->data_nasc).ano);
+            printf("\nData de Nascimento: %d/%d/%d\n", (aux->data_nasc).dia, (aux->data_nasc).mes, (aux->data_nasc).ano);
             aux = aux->prox; 
         }
     }
@@ -201,7 +205,7 @@ void inserirProduto(produto *produtoNovo, int codigo, char descricao[100], int e
 void alterarProduto(int codigo_busca, char descricao[100], int estoque, float preco_unitario){
     produto *aux; 
 
-    if(inicio_produto == NULL) printf("\n\n== Nao ha Clientes Cadastrados ==\n\n");
+    if(inicio_produto == NULL) printf("\n\n== Nao ha Clientes Cadastrados ==\n");
     else {
         aux = inicio_produto;
 
@@ -210,23 +214,25 @@ void alterarProduto(int codigo_busca, char descricao[100], int estoque, float pr
                 strcpy(aux->descricao, descricao);
                 aux->estoque = estoque;
                 aux->preco_unitario = preco_unitario;
-                printf("\n\n== Produto de Codigo %d Alterado ==\n\n", codigo_busca);
+                printf("\n\n== Produto de Codigo %d Alterado ==\n", codigo_busca);
                 return;
             }
             aux = aux->prox; 
         }
     }
+
+    printf("\n\n== Alteracao de Produto de Codigo %d Fracassou ==\n", codigo_busca);
 }
 
 void consultarProduto(int codigo_busca){
     produto *aux; 
-    if(inicio_produto == NULL) printf("\n\n== Nao ha Produtos Cadastrados ==\n\n");
+    if(inicio_produto == NULL) printf("\n\n== Nao ha Produtos Cadastrados ==\n");
     else {
         aux = inicio_produto;
 
         while(aux != NULL){ 
             if(aux->codigo == codigo_busca){
-                printf("\n\n== Produto de Codigo %d ==\n\n", codigo_busca);
+                printf("\n\n== Produto de Codigo %d ==\n", codigo_busca);
                 printf("\nDescricao: %s", aux->descricao);
                 printf("\nEstoque: %d", aux->estoque);
                 printf("\nPreco Unitario: %0.2f\n", aux->preco_unitario);
@@ -240,7 +246,7 @@ void consultarProduto(int codigo_busca){
 void removerProduto(int codigo_busca){
     produto *aux, *p; 
 
-    if(inicio_produto == NULL) printf("\n\n== Nao ha Produtos Cadastrados ==\n\n");
+    if(inicio_produto == NULL) printf("\n\n== Nao ha Produtos Cadastrados ==\n");
     else {
         aux = inicio_produto;
         p = aux;
@@ -252,18 +258,20 @@ void removerProduto(int codigo_busca){
                 if(aux->ant == NULL) inicio_produto = NULL;
                 free(aux);
 
-                printf("\n\n== Produto de Codigo %d Removido ==\n\n", codigo_busca);
+                printf("\n\n== Produto de Codigo %d Removido ==\n", codigo_busca);
                 return;
             }
             p = aux;
             aux = aux->prox; 
         }
     }
+
+    printf("\n\n== Remocao de Produto de Codigo %d Fracassou ==\n", codigo_busca);
 }
 
 void listarProdutos(){
     produto *aux; 
-    if(inicio_produto == NULL) printf("\n\n== Nao ha Produtos Cadastrados ==\n\n");
+    if(inicio_produto == NULL) printf("\n\n== Nao ha Produtos Cadastrados ==\n");
     else {
         aux = inicio_produto;
 
@@ -271,7 +279,7 @@ void listarProdutos(){
             printf("\nCodigo: %d", aux->codigo);
             printf("\nDescricao: %s", aux->descricao);
             printf("\nEstoque: %d", aux->estoque);
-            printf("\nPreco Unitario: %0.2f\n\n", aux->preco_unitario);
+            printf("\nPreco Unitario: %0.2f\n", aux->preco_unitario);
             aux = aux->prox; 
         }
     }
@@ -279,7 +287,7 @@ void listarProdutos(){
 
 void estoqueProduto(int estoque){
     produto *aux; 
-    if(inicio_produto == NULL) printf("\n\n== Nao ha Produtos Cadastrados ==\n\n");
+    if(inicio_produto == NULL) printf("\n\n== Nao ha Produtos Cadastrados ==\n");
     else {
         aux = inicio_produto;
 
@@ -288,7 +296,7 @@ void estoqueProduto(int estoque){
                 printf("\nCodigo: %d", aux->codigo);
                 printf("\nDescricao: %s", aux->descricao);
                 printf("\nEstoque: %d", aux->estoque);
-                printf("\nPreco Unitario: %0.2f\n\n", aux->preco_unitario);
+                printf("\nPreco Unitario: %0.2f\n", aux->preco_unitario);
             }
             aux = aux->prox; 
         }
@@ -414,16 +422,17 @@ void alterarVenda(int codVenda_busca, long long int cpf_cliente, int cod_produto
                     produto_aux = produto_aux->prox; 
                 }
 
-
                 aux->cpf_cliente = cpf_cliente;
                 aux->cod_produto = cod_produto;
                 aux->qtd_comprada = qtd_comprada;
+                printf("\n\n== Venda de Codigo %d Alterada ==", codVenda_busca);
+                return;
             }
             aux = aux->prox;
         }
     }
 
-    printf("\n\n== Venda de Codigo %d Alterada ==", codVenda_busca);
+    printf("\n\n== Alteracao de Venda de Codigo %d Fracassou ==", codVenda_busca);
 }
 
 void main(){
