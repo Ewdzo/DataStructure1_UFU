@@ -64,6 +64,11 @@ void inserirCliente(cliente *clienteNovo, long long int cpf, char nome[50], long
     else {
         aux = inicio_cliente;
 
+        if(aux->cpf == cpf){
+            printf("\n== CPF Ja Registrado ==\n");
+            return;
+        }
+
         while(aux->prox != NULL){ 
             if(aux->cpf == cpf){
                 printf("\n== CPF Ja Registrado ==\n");
@@ -173,6 +178,11 @@ void inserirProduto(produto *produtoNovo, int codigo, char descricao[100], int e
     if(inicio_produto == NULL) inicio_produto = produtoNovo;
     else {
         aux = inicio_produto;
+       
+        if(aux->codigo == codigo){
+            printf("\n== Codigo Ja Registrado ==\n");
+            return;
+        }
 
         while(aux->prox != NULL){ 
             if(aux->codigo == codigo){
@@ -333,9 +343,14 @@ void inserirVenda(venda *vendaNova, int codVenda, long long int cpf_cliente, int
         else {
             aux = inicio_venda;
 
+            if(aux->codVenda == codVenda){
+                printf("\n== Codigo de Venda Ja Registrado ==\n");
+                return;
+            }
+
             while(aux->prox != NULL){ 
                 if(aux->codVenda == codVenda){
-                    printf("\n== Codigo Ja Registrado ==\n");
+                    printf("\n== Codigo de Venda Ja Registrado ==\n");
                     return;
                 }
                 vendaNova->ant = aux;
@@ -381,13 +396,13 @@ void alterarVenda(int codVenda_busca, long long int cpf_cliente, int cod_produto
 
                 produto_aux = inicio_produto;
                 while(produto_aux != NULL){ 
-                    if(produto_aux->codigo == aux->cod_produto && produto_aux->codigo != cod_produto) produto_aux->estoque =+ aux->qtd_comprada;
+                    if(produto_aux->codigo == aux->cod_produto && produto_aux->codigo != cod_produto) produto_aux->estoque += aux->qtd_comprada;
                     produto_aux = produto_aux->prox;
                 }
 
                 produto_aux = inicio_produto;
                 while(produto_aux != NULL && produtoConfirmado){ 
-                    if(produto_aux->codigo == aux->cod_produto && produto_aux->codigo == cod_produto) produto_aux->estoque =+ aux->qtd_comprada;
+                    if(produto_aux->codigo == aux->cod_produto && produto_aux->codigo == cod_produto) produto_aux->estoque += aux->qtd_comprada;
                     if(produto_aux->codigo == cod_produto) {
                         if(produto_aux->estoque < qtd_comprada) {
                             printf("\n\n== Quantidade Insuficiente Em Estoque ==");
