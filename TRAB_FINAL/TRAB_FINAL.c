@@ -52,6 +52,11 @@ venda *inicio_venda = NULL;
 void inserirCliente(cliente *clienteNovo, long long int cpf, char nome[50], long long int telefone, endereco endereco_cliente, data data_nasc){
     cliente *aux;
 
+    if(data_nasc.dia < 1 || data_nasc.dia > 31 || data_nasc.mes < 1 || data_nasc.mes > 12){
+        printf("\n== Data de Nascimento Invalida ==");
+        return;
+    }
+
     clienteNovo->cpf = cpf;
     strcpy(clienteNovo->nome, nome);
     clienteNovo->telefone = telefone;
