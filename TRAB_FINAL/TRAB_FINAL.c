@@ -133,13 +133,22 @@ void consultarCliente(long long int cpf_busca){
 
 void removerCliente(long long int cpf_busca){
     cliente *aux, *p; 
+    venda *aux_venda = inicio_venda;
 
     if(inicio_cliente == NULL) printf("\n\n== Nao ha Clientes Cadastrados ==\n");
     else {
         aux = inicio_cliente;
         p = aux;
 
-        while(aux != NULL){ 
+        while(aux != NULL){
+            while(aux_venda != NULL){ 
+                if(aux_venda->cpf_cliente == aux->cpf) {
+                    printf("\n\n== Remocao de Cliente de CPF %lld Falhou ==\n", cpf_busca);
+                    return;
+                }
+                aux_venda = aux_venda->prox; 
+            } 
+
             if(aux->cpf == cpf_busca){
                 (p)->prox = aux->prox;
 
@@ -250,6 +259,7 @@ void consultarProduto(int codigo_busca){
 
 void removerProduto(int codigo_busca){
     produto *aux, *p; 
+    venda *aux_venda = inicio_venda;
 
     if(inicio_produto == NULL) printf("\n\n== Nao ha Produtos Cadastrados ==\n");
     else {
@@ -257,6 +267,14 @@ void removerProduto(int codigo_busca){
         p = aux;
 
         while(aux != NULL){ 
+            while(aux_venda != NULL){ 
+                if(aux_venda->cod_produto == aux->codigo) {
+                    printf("\n\n== Remocao de Produto de Codigo %d Falhou ==\n", aux->codigo);
+                    return;
+                }
+                aux_venda = aux_venda->prox; 
+            } 
+
             if(aux->codigo == codigo_busca){
                 (p)->prox = aux->prox;
 
