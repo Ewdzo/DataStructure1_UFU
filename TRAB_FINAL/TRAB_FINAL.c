@@ -443,7 +443,7 @@ void consultarVenda(int codVenda_busca){
 
         while(aux != NULL){ 
             if(aux->codVenda == codVenda_busca){
-                printf("\n\n== Produto de Codigo %d ==\n", codVenda_busca);
+                printf("\n\n== Venda de Codigo %d ==\n", codVenda_busca);
                 printf("\nCPF do Cliente: %lld", aux->cpf_cliente);
                 printf("\nCodigo do Produto: %d", aux->cod_produto);
                 printf("\nQuantidade Comprada: %d\n", aux->qtd_comprada);
@@ -454,6 +454,34 @@ void consultarVenda(int codVenda_busca){
     }
 }
 
+void removerVenda(int codVenda_busca){
+    venda *aux, *p; 
+    produto *aux_produto = inicio_produto;
+    if(inicio_venda == NULL) printf("\n\n== Nao ha Vendas Cadastradas ==\n");
+    else {
+        aux = inicio_venda;
+        p = aux;
+
+        while(aux != NULL){ 
+            if(aux->codVenda == codVenda_busca){
+                while(aux_produto != NULL){
+                    if(aux->cod_produto == aux_produto->codigo) aux_produto->estoque += aux->qtd_comprada;
+                    aux_produto = aux_produto->prox;
+                }
+
+                (p)->prox = aux->prox;
+
+                if(aux->ant == NULL) inicio_venda = NULL;
+                free(aux);
+
+                printf("\n\n== Venda de Codigo %d Removida ==\n", codVenda_busca);
+                return;
+            }
+            p = aux;
+            aux = aux->prox; 
+        }
+    }
+}
 
 void main(){
     int option = 0;
@@ -697,7 +725,15 @@ void main(){
 
             consultarVenda(codVenda_aux);
         }
-        else if(option == 12){}
+        else if(option == 12){
+            int codVenda_aux;
+            
+            printf("\nInsira o Codigo da Venda a Remover: ");
+            setbuf(stdin, NULL);
+            scanf("%d", &codVenda_aux);
+
+            removerVenda(codVenda_aux);
+        }
         else if(option == 13) listarClientes();
         else if(option == 14) listarProdutos();
         else if(option == 15){}
